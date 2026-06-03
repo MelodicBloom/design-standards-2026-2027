@@ -200,30 +200,32 @@ For React/Next implementations, map this skill into Framer Motion with these con
 - `initial` = hidden or pre-entry state
 - `animate` = final readable state
 - `exit` = short, calm leave state
-- `transition.duration` = semantic duration token
+- `transition.duration` = semantic duration token (in seconds: xxs = 0.12, xs = 0.18, sm = 0.24, md = 0.32, lg = 0.52, xl = 0.70)
 - `transition.ease` = semantic easing token
 - `AnimatePresence` = only where enter/exit continuity matters
-- `useReducedMotion()` = required for accessible variants
+- `useReducedMotion()` = required for accessible variants; when true, collapse all durations to 0 and use opacity only
 
-Variant naming:
-- `enterOrganic`
-- `enterStructured`
-- `exitCalm`
-- `focusPulse`
-- `staggerChildren`
+Variant naming convention:
+- `enterOrganic` — xl/lg enters, Organic dialect
+- `enterStructured` — sm/md enters, Structured dialect
+- `exitCalm` — all exits (shorter than corresponding enter)
+- `focusPulse` — Focus role microinteractions
+- `staggerChildren` — parent variant with `staggerChildren` delay set to tag-appropriate offset
 
 ## Figma handoff annotations
 
-When documenting motion in Figma, annotate each component with:
-- tag
-- motion role
-- brand dialect
-- duration token
-- easing token
-- trigger
-- reduced-motion fallback
+When documenting motion in Figma, annotate each component or frame with a compact motion spec note:
 
-Use a compact note format so design and engineering can read the same motion intent.
+```
+[tag] | [role] | [dialect] | [duration token] | [easing token] | [trigger] | [reduced-motion fallback]
+```
+
+Example:
+```
+hero | Expressive | Organic | motion-duration-xl | motion-ease-organic-enter | page-load | fade only
+```
+
+Apply this note to every animated layer or group in the Figma file so engineering can read the full motion intent without needing to interpret visual timing from prototype previews.
 
 ## Accessibility rules (mandatory)
 
@@ -257,7 +259,7 @@ Use a compact note format so design and engineering can read the same motion int
 ## React/Next implementation rules
 
 - Use semantic token references, not hardcoded values
-- Support reduced-motion at component level
+- Support reduced-motion at component level via useReducedMotion()
 - Prefer transforms and opacity over layout-thrashing properties
 - Keep interactive states short and obvious
 - Avoid running large ambient animations near content-dense areas
@@ -266,21 +268,30 @@ Use a compact note format so design and engineering can read the same motion int
 
 ## Documentation pipeline
 
-1. Define token JSON
+1. Define token JSON (references/token-spec.json)
 2. Validate against schema
-3. Generate CSS variables
-4. Generate Tailwind mappings
-5. Generate docs tables
+3. Generate CSS variables (references/motion-tokens.css)
+4. Generate Tailwind mappings (references/tailwind-motion.js)
+5. Generate docs tables (references/slide-type-matrix.md)
 6. Publish to repo or package
 7. Test in component library or app
 
 ## Changelog
 
 ### 1.0.2
-- Added motion sequencing, exit motion, scroll-linked motion, responsive rules, conflict resolution, anti-patterns, QA checklist, Framer Motion mapping, Figma handoff annotations, and changelog structure.
+- Added: motion sequencing and stagger budgets
+- Added: exit and leave motion rules
+- Added: scroll-linked motion trigger thresholds
+- Added: responsive motion rules for mobile and low-power
+- Added: conflict resolution precedence
+- Added: anti-patterns section
+- Added: QA checklist (11 criteria)
+- Added: Framer Motion mapping with variant naming and duration conversion
+- Added: Figma handoff annotation format
+- Added: changelog structure
 
 ### 1.0.1
-- Initial operational skill with roles, tags, tokens, accessibility, performance, and references.
+- Initial operational skill with roles, tags, tokens, accessibility, performance, and references
 
 ## Source-derived insight summary
 
@@ -288,16 +299,22 @@ From Beautiful Imperfection:
 - Imperfection functions as honesty, tactility, and human signal
 - Glitch, melt, blur, and psychedelic forms are expressive layers when controlled
 - Chaos requires mathematical and accessible foundations
+- Deploy expressive effects in hero/gallery/campaign zones; keep checkout and dense reading calm
 
 From The Death of Perfect:
-- Polished sameness is losing distinction
-- Slight inconsistency and human correction can restore presence
+- Polished sameness is losing distinction; algorithmic perfection has become invisible
+- Slight inconsistency and human correction can restore presence and trust
 - The architecture must remain calm even when the surface becomes feral
+- Zone A (riot) vs Zone B (calm): hero and campaigns get chaos; nav and forms stay invisible
 
 ## References
-- references/token-spec.json — full JSON token schema
+- references/token-spec.json — full JSON token schema with triggers and fallbacks
 - references/motion-tokens.css — CSS variables + utility classes
 - references/tailwind-motion.js — Tailwind theme extension
-- references/slide-type-matrix.md — 27-tag classification matrix
-- templates/ — prompt templates for React components, audits, docs, deck-to-web
-- examples/ — Beautiful Imperfection and The Death of Perfect slide mappings
+- references/slide-type-matrix.md — 35-tag classification matrix with density and fallback columns
+- templates/react-component-prompt.md — prompt template for generating motion components
+- templates/motion-audit-prompt.md — prompt template for auditing motion compliance
+- templates/docs-generation-prompt.md — prompt template for generating component docs
+- templates/deck-to-web-section-prompt.md — prompt template for deck-to-web translation
+- examples/beautiful-imperfection-mapping.md — 10-slide motion mapping, Organic dialect
+- examples/death-of-perfect-mapping.md — 11-slide motion mapping, Structured dialect

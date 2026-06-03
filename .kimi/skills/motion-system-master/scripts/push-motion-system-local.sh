@@ -5,7 +5,7 @@ REMOTE=${1:-origin}
 BASE_BRANCH=${2:-main}
 TARGET_REPO=${3:-.}
 BRANCH=${4:-feat/motion-token-system}
-COMMIT_MSG=${5:-"feat(motion): add motion-system-master package"}
+COMMIT_MSG=${5:-"feat(motion): add motion-system-master package v1.0.2"}
 
 ROOT_DIR="$(cd "$(dirname "$0")/../.." && pwd)"
 PACKAGE_DIR="$ROOT_DIR/output/motion-system-master"
