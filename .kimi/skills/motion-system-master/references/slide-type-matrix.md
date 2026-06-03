@@ -5,7 +5,7 @@
 | Tag | Primary role | Dialect | Duration | Density | Reduced motion |
 |---|---|---|---|---|---|
 | hero | Expressive | Organic | xl 700ms | High | fade only |
-| thesis | Informational | Hybrid | lg 520ms | Medium | instant |
+| thesis | Informational + Expressive | Hybrid | lg 520ms | Medium | instant |
 | comparison | Informational | Structured | sm 240ms | Medium | instant |
 | process | Informational | Structured | md 320ms | Medium | instant |
 | technical | Informational | Structured | md 320ms | Low-Medium | instant |

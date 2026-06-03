@@ -2,7 +2,7 @@
 name: motion-system-master
 description: Comprehensive motion-system skill for slide decks, editorial microsites, React/Next websites, and multi-brand design systems. Encodes motion roles, tag taxonomies, token architecture, easing and duration guidance, accessibility rules, implementation matrices, and decision hierarchies.
 compatibility: Kimi CLI / React / Next.js / Tailwind / CSS / design token pipelines
-version: 1.0.0
+version: 1.0.2
 ---
 
 # Motion System Master Skill
@@ -107,13 +107,123 @@ nav, modal, drawer, form, feedback, state-change, list, detail, dashboard, media
 - motion-ease-organic-accent: cubic-bezier(0.16, 1, 0.3, 1)
 - motion-ease-structured-ui: cubic-bezier(0.4, 0, 0.2, 1)
 
-## Decision hierarchy
+## Motion sequencing rules
 
-If content is dense, explanatory, or task-critical → default to quieter, informational motion.
-If content is introductory, atmospheric, or manifest-like → expressive motion allowed.
-If content changes state or requires interaction clarity → focus motion takes precedence.
-If screen is mobile or low-power → simplify and shorten.
-If prefers-reduced-motion is on → minimize to functional essentials only.
+When more than one element animates in the same section, sequence by hierarchy:
+- headline first
+- supporting copy second
+- media or decorative layers last
+
+Default stagger guidance:
+- hero: 80ms between elements, max 4 visible staggered items
+- card grid: 40ms between items, max 6 items before batching
+- list/detail views: 20–40ms between rows
+- manifesto and gallery: 60–120ms depending on density
+
+Rules:
+- Do not stagger everything by default; only stagger when hierarchy benefits from it.
+- Cap total stagger budget so the section resolves quickly.
+- If a stagger competes with reading, collapse to a single reveal.
+
+## Exit and leave motion
+
+Exit motion should usually be shorter than entrance motion.
+Use exits to preserve continuity, not to add spectacle.
+
+Rules:
+- modal close: 160–240ms
+- drawer close: 180–260ms
+- tab/content swap: 120–180ms
+- page leave: minimal, unless the transition is part of a narrative sequence
+- expressive exits are rare; favor calm fade or slide-out behavior
+
+If content is disappearing from a task-critical area, prioritize immediate clarity over flourish.
+
+## Scroll-linked motion
+
+Scroll-linked motion must be used sparingly and only when it clarifies narrative or hierarchy.
+
+Rules:
+- Trigger reveals when 15–20% of the section enters the viewport
+- Prefer once-only reveals for hero, thesis, and manifesto tags
+- Allow repeatable reveals only for lightweight utility content
+- Never bind essential comprehension to continuous scroll progress alone
+- If the scroll is fast, jump to the final stable state rather than replaying a long sequence
+
+## Responsive motion rules
+
+Motion should adapt to device context.
+
+Rules:
+- On mobile, reduce durations by roughly 20% for structural motion
+- Suppress background-atmosphere, heavy parallax, and long looping ambient motion on low-power or narrow screens
+- Convert hover-only affordances into tap/press behaviors
+- Keep touch-triggered motion short and unambiguous
+- If the screen is dense, simplify the animation rather than shrinking the text area
+
+## Conflict resolution
+
+When roles conflict in one component, use this precedence:
+- Focus overrides Informational when feedback or affordance clarity is at stake
+- Informational overrides Expressive when comprehension could suffer
+- Expressive is allowed only after structure and interaction clarity are resolved
+
+## Anti-patterns
+
+Do not:
+- animate width, height, margin, padding, or top/left for routine motion
+- use motion-xl inside forms, checkout flows, or dense data tables
+- stack multiple expressive effects on the same focal beat
+- rely on motion as the only cue for meaning
+- run ambient loops that compete with readable text
+- omit reduced-motion fallbacks on anything except truly static content
+- introduce motion that delays task completion without clear benefit
+
+## QA checklist
+
+Before shipping, verify:
+- the tag is correct
+- the motion role is correct
+- the dialect matches the component purpose
+- durations come from semantic tokens
+- easing comes from semantic tokens
+- only transform and opacity are animated unless explicitly justified
+- reduced-motion behavior is present and readable
+- keyboard focus states are clear
+- motion does not obscure text or controls
+- exit behavior is shorter and calmer than enter behavior
+- stagger, if used, improves hierarchy rather than cluttering it
+
+## Framer Motion mapping
+
+For React/Next implementations, map this skill into Framer Motion with these conventions:
+- `initial` = hidden or pre-entry state
+- `animate` = final readable state
+- `exit` = short, calm leave state
+- `transition.duration` = semantic duration token
+- `transition.ease` = semantic easing token
+- `AnimatePresence` = only where enter/exit continuity matters
+- `useReducedMotion()` = required for accessible variants
+
+Variant naming:
+- `enterOrganic`
+- `enterStructured`
+- `exitCalm`
+- `focusPulse`
+- `staggerChildren`
+
+## Figma handoff annotations
+
+When documenting motion in Figma, annotate each component with:
+- tag
+- motion role
+- brand dialect
+- duration token
+- easing token
+- trigger
+- reduced-motion fallback
+
+Use a compact note format so design and engineering can read the same motion intent.
 
 ## Accessibility rules (mandatory)
 
@@ -163,6 +273,14 @@ If prefers-reduced-motion is on → minimize to functional essentials only.
 5. Generate docs tables
 6. Publish to repo or package
 7. Test in component library or app
+
+## Changelog
+
+### 1.0.2
+- Added motion sequencing, exit motion, scroll-linked motion, responsive rules, conflict resolution, anti-patterns, QA checklist, Framer Motion mapping, Figma handoff annotations, and changelog structure.
+
+### 1.0.1
+- Initial operational skill with roles, tags, tokens, accessibility, performance, and references.
 
 ## Source-derived insight summary
 
