@@ -1,0 +1,33 @@
+:root {
+  /* Easing */
+  --motion-ease-organic-enter:  cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-ease-organic-accent: cubic-bezier(0.16, 1, 0.3, 1);
+  --motion-ease-structured-ui:  cubic-bezier(0.4,  0, 0.2,  1);
+
+  /* Duration scale */
+  --motion-duration-xxs: 120ms;
+  --motion-duration-xs:  180ms;
+  --motion-duration-sm:  240ms;
+  --motion-duration-md:  320ms;
+  --motion-duration-lg:  520ms;
+  --motion-duration-xl:  700ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration:        0.01ms !important;
+    animation-iteration-count: 1      !important;
+    transition-duration:       0.01ms !important;
+    scroll-behavior:           auto   !important;
+  }
+}
+
+.motion-enter-organic   { transition-timing-function: var(--motion-ease-organic-enter); }
+.motion-enter-structured { transition-timing-function: var(--motion-ease-structured-ui); }
+.motion-accent-organic  { transition-timing-function: var(--motion-ease-organic-accent); }
+.motion-dur-xxs { transition-duration: var(--motion-duration-xxs); }
+.motion-dur-xs  { transition-duration: var(--motion-duration-xs);  }
+.motion-dur-sm  { transition-duration: var(--motion-duration-sm);  }
+.motion-dur-md  { transition-duration: var(--motion-duration-md);  }
+.motion-dur-lg  { transition-duration: var(--motion-duration-lg);  }
+.motion-dur-xl  { transition-duration: var(--motion-duration-xl);  }
