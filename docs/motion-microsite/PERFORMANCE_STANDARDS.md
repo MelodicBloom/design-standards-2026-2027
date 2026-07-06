@@ -1,6 +1,6 @@
 ---
 title: Motion System Microsite — Performance Standards
-version: 1.0.0
+version: 1.0.1
 ---
 
 # Performance Standards — Motion System Microsite
@@ -18,6 +18,7 @@ All scores measured on Vercel production. Mobile profile: Moto G4 throttle (4G, 
 | LCP | < 1.8s | > 2.5s | CrUX / Lighthouse |
 | CLS | < 0.05 | > 0.1 | CrUX / Lighthouse |
 | INP | < 100ms | > 200ms | web-vitals |
+| TBT | < 150ms | > 300ms | Lighthouse CI |
 | FCP | < 1.2s | > 1.8s | Lighthouse |
 | TTFB | < 400ms | > 600ms | Lighthouse |
 | JS bundle (gzip) | < 180kB | > 250kB | @next/bundle-analyzer |

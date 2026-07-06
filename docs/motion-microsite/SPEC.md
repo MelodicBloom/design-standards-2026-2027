@@ -1,6 +1,6 @@
 ---
 title: Motion System Microsite — Full Spec
-version: 1.0.0
+version: 1.0.1
 stack: Next.js 15 · TypeScript · Tailwind v4 · Framer Motion 11 · Vercel
 org: MelodicBloom / design-standards-2026-2027
 route: /motion-system
@@ -53,6 +53,7 @@ Mobile target: Moto G4 throttle profile (4G, 4× CPU slowdown) via Lighthouse CI
 | LCP (Largest Contentful Paint) | < 1.8s | > 2.5s |
 | CLS (Cumulative Layout Shift) | < 0.05 | > 0.1 |
 | INP (Interaction to Next Paint) | < 100ms | > 200ms |
+| TBT (Total Blocking Time) | < 150ms | > 300ms |
 | FCP (First Contentful Paint) | < 1.2s | > 1.8s |
 | TTFB | < 400ms | > 600ms |
 | Total JS bundle (gzip) | < 180kB | > 250kB |
@@ -174,6 +175,7 @@ All motion values are CSS custom properties. No hardcoded durations or easings i
 - [ ] LCP < 1.8s on 4G mid-tier mobile
 - [ ] CLS < 0.05 (no font or image layout shift)
 - [ ] INP < 100ms
+- [ ] TBT < 150ms
 - [ ] JS bundle < 180kB gzip
 - [ ] Framer Motion: named imports only (tree-shaken)
 - [ ] No unused CSS in production build
@@ -213,6 +215,12 @@ All motion values are CSS custom properties. No hardcoded durations or easings i
 ## File Tree
 
 ```
+tokens/
+  motion.json               ← W3C token source (repo root)
+styles/
+  motion-tokens.css         ← generated CSS vars (repo root)
+tailwind/
+  motion-theme.js           ← Tailwind theme.extend (repo root)
 app/
   motion-system/
     page.tsx
@@ -228,9 +236,6 @@ app/
     hooks/
       useReducedMotion.ts
       useInView.ts
-    tokens/
-      motion.json
-      motion.css.ts
     styles/
       motion-system.css
 styles/
@@ -238,6 +243,12 @@ styles/
 public/
   og/
     motion-system-og.png
+docs/
+  motion-microsite/
+    SPEC.md
+    QA_CHECKLIST.md
+    PERFORMANCE_STANDARDS.md
+    DESIGN_STANDARDS.md
 ```
 
 ---

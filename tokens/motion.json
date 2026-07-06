@@ -1,5 +1,15 @@
 {
   "$schema": "https://www.designtokens.org/tr/drafts/format/",
+  "$codegen": {
+    "note": "CSS var generation must transform camelCase easing keys to kebab-case.",
+    "transforms": [
+      "organicEnter  → --motion-ease-organic-enter",
+      "organicAccent → --motion-ease-organic-accent",
+      "structuredUi  → --motion-ease-structured-ui"
+    ],
+    "tool": "Style Dictionary or equivalent token build pipeline",
+    "output": "styles/motion-tokens.css"
+  },
   "motion": {
     "duration": {
       "xxs": {"$type": "duration", "$value": 120, "$description": "hover, focus, tooltip"},
