@@ -1,0 +1,18 @@
+{
+  "$schema": "https://www.designtokens.org/tr/drafts/format/",
+  "motion": {
+    "duration": {
+      "xxs": {"$type": "duration", "$value": 120, "$description": "hover, focus, tooltip"},
+      "xs":  {"$type": "duration", "$value": 180, "$description": "button, affordance, feedback"},
+      "sm":  {"$type": "duration", "$value": 240, "$description": "card, row, small reveal"},
+      "md":  {"$type": "duration", "$value": 320, "$description": "section, modal, drawer"},
+      "lg":  {"$type": "duration", "$value": 520, "$description": "editorial, gallery, bridge"},
+      "xl":  {"$type": "duration", "$value": 700, "$description": "hero, manifesto, atmosphere"}
+    },
+    "easing": {
+      "organicEnter":  {"$type": "cubicBezier", "$value": [0.22, 1, 0.36, 1], "$description": "warm editorial entrances — hero, thesis, gallery, manifesto"},
+      "organicAccent": {"$type": "cubicBezier", "$value": [0.16, 1, 0.3, 1],  "$description": "sharper organic accent — callout, cta, card-hover"},
+      "structuredUi":  {"$type": "cubicBezier", "$value": [0.4, 0, 0.2, 1],   "$description": "neutral UI transitions — nav, tabs, modal, drawer, comparison"}
+    }
+  }
+}

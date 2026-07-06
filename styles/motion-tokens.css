@@ -1,0 +1,43 @@
+/* ==========================================================================
+   Motion Tokens — generated from tokens/motion.json
+   Do not edit manually. Re-run token generation to update.
+   ========================================================================== */
+
+:root {
+  /* Duration scale */
+  --motion-duration-xxs: 120ms; /* hover, focus, tooltip */
+  --motion-duration-xs:  180ms; /* button, affordance, feedback */
+  --motion-duration-sm:  240ms; /* card, row, small reveal */
+  --motion-duration-md:  320ms; /* section, modal, drawer */
+  --motion-duration-lg:  520ms; /* editorial, gallery, bridge */
+  --motion-duration-xl:  700ms; /* hero, manifesto, atmosphere */
+
+  /* Easing scale */
+  --motion-ease-organic-enter:  cubic-bezier(0.22, 1, 0.36, 1); /* warm editorial entrances */
+  --motion-ease-organic-accent: cubic-bezier(0.16, 1, 0.3, 1);  /* sharper organic accent */
+  --motion-ease-structured-ui:  cubic-bezier(0.4, 0, 0.2, 1);   /* neutral UI transitions */
+}
+
+/* ==========================================================================
+   Reduced motion — collapses all durations to near-zero
+   Applies globally AND via component-level useReducedMotion() hook
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-duration-xxs: 0.01ms;
+    --motion-duration-xs:  0.01ms;
+    --motion-duration-sm:  0.01ms;
+    --motion-duration-md:  0.01ms;
+    --motion-duration-lg:  0.01ms;
+    --motion-duration-xl:  0.01ms;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration:       0.01ms !important;
+    animation-iteration-count: 1     !important;
+    transition-duration:      0.01ms !important;
+    scroll-behavior:          auto   !important;
+  }
+}
