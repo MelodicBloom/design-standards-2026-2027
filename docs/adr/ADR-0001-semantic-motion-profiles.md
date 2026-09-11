@@ -3,7 +3,7 @@
 **Status:** Proposed
 **Decision class:** Cross-system design / interaction governance
 **Canonical home:** `MelodicBloom/design-standards-2026-2027`
-**Base SHA:** `f0ec18da4d9b6d9885506815bb772910782bff6e`
+**Base SHA:** `34d78ad4fc058c16f4e779fa5aa84ab87cb4a582`
 
 ## 1. Provenance
 
