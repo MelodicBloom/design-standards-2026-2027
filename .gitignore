@@ -1,0 +1,5 @@
+.work/
+tools/motion-drift-scanner/node_modules/
+tools/motion-drift-scanner/coverage/
+tools/motion-drift-scanner/dist/
+tools/motion-drift-scanner/.cache/

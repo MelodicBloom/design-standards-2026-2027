@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "manifestVersion": "0.1.0",
+  "governingRepository": "MelodicBloom/design-standards-2026-2027",
+  "governingBaseSha": "1279b0c38cc1183d1c764d5ed7dbc2f91e6660b2",
+  "acceptedPolicy": {
+    "path": "docs/adr/ADR-0001-semantic-motion-profiles.md",
+    "commit": "3ff1ce033d7069554141b4ebda57d948c9849a1c"
+  },
+  "baseline": {
+    "path": "docs/audits/2026-09-11-motion-drift-baseline-v0.md",
+    "mergeCommit": "1279b0c38cc1183d1c764d5ed7dbc2f91e6660b2"
+  },
+  "consumers": [
+    {
+      "repository": "qt314wink/nextjs-boilerplate",
+      "sha": "b1bcbcc3199b41b37616bd377a0461e4a6f489bf",
+      "role": "mature-ui-consumer-with-local-semantic-motion-tokens",
+      "anchors": [
+        "src/styles/tokens.css",
+        "app/globals.css",
+        "src/components/**"
+      ]
+    },
+    {
+      "repository": "qt314wink/seed-loom",
+      "sha": "59da68c0d4a5b5152a3fd34501cb90ef5b81da8c",
+      "role": "governed-product-plus-reference-fixtures",
+      "anchors": [
+        "src/filter-atelier/styles.css",
+        "packages/svg-filter-atlas/reference/**",
+        "initiatives/textile-interface/reference/**"
+      ]
+    },
+    {
+      "repository": "qt314wink/svg-filter-lab",
+      "sha": "951f95f974687ee03b574b95a5b96920c39c8172",
+      "role": "procedural-rendering-negative-control",
+      "anchors": [
+        "src/hooks/useSVGFilter.ts",
+        "src/components/FilterSurface.tsx",
+        "src/components/SVGFilterDefs.tsx",
+        "packages/svg-filters/filter-catalog.json"
+      ]
+    }
+  ],
+  "classifications": [
+    "canonical_token",
+    "mapped_local_token",
+    "hardcoded_interaction_motion",
+    "partial_token_drift",
+    "accessibility_override",
+    "reference_fixture",
+    "procedural_rendering_cadence",
+    "unclassified"
+  ]
+}
