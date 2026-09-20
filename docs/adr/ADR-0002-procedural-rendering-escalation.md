@@ -17,8 +17,12 @@ Repository evidence at proposal time includes:
   - `packages/svg-filters/filter-catalog.json`
 - `qt314wink/nextjs-boilerplate@b1bcbcc3199b41b37616bd377a0461e4a6f489bf`
   - `src/components/shell/ShellRoot.tsx`
+- `MelodicBloom/shader-gallery@e59ae2ca8c0d07b9492a0713b29a0bf7b6cae774`
+  - `aurora/index.html`
+- `MelodicBloom/aether@dd45f60dd6c9195a9c29a2c311bf4cfab7705716`
+  - `src/components/ShaderCanvas.tsx`
 
-The evidence shows real use of `feTurbulence`, `feDisplacementMap`, and parameterized `baseFrequency` values. It also shows that procedural rendering cadence can be numerically timed without being interaction motion, so ADR-0001 and ADR-0002 must remain distinct.
+The evidence shows real use of `feTurbulence`, `feDisplacementMap`, parameterized `baseFrequency`, and a separate GPU-backed class of continuously evaluated fragment-shader fields. It also shows that procedural rendering cadence can be numerically timed without being interaction motion, so ADR-0001 and ADR-0002 must remain distinct.
 
 ## 2. Context
 
@@ -135,6 +139,16 @@ The UI may simplify terminology, but simplification must not erase the underlyin
 ### Timing boundary
 
 The motion-drift baseline identified a 220ms procedural SVG-noise update cadence in `svg-filter-lab`. This is rendering cadence, not interaction-state transition timing, and therefore belongs under this ADR rather than ADR-0001.
+
+### Repository-backed GPU escalation case
+
+`MelodicBloom/shader-gallery/aurora/index.html` implements a full-screen WebGL fragment shader with time and resolution uniforms, procedural hash/noise functions, and a six-octave FBM loop evaluated per fragment on every animation frame.
+
+`MelodicBloom/aether/src/components/ShaderCanvas.tsx` provides the reusable runtime form of the same class of mechanism: a high-performance WebGL context, compiled vertex/fragment programs, continuously updated `u_time` and `u_res` uniforms, and semantic controls including speed, intensity, and scale.
+
+This is a credible escalation case because the required mechanism is a continuously evaluated per-pixel shader field with explicit shader uniforms and multi-octave procedural computation. Recreating a superficially similar appearance with SVG filters would be a different mechanism and would not preserve the same GLSL program, uniform contract, or per-fragment computation model. The justification is therefore mechanism fidelity and GPU-parallel evaluation, not visual prestige.
+
+This evidence does **not** establish that every animated field requires WebGL. It establishes one concrete repository-backed class where WebGL is justified under the proposed escalation rule.
 
 ## 9. Alternatives considered
 
