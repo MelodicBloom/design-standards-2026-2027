@@ -1,0 +1,158 @@
+{
+  "version": "0.1.0-proposal",
+  "id": "inspection-scene",
+  "status": "proposed-unmeasured",
+  "use_cases": [
+    "material inspection",
+    "portfolio case-study browsing",
+    "comparison of optical hypotheses",
+    "accessible spatial annotation",
+    "time-driven presentation demonstration"
+  ],
+  "implementation": {
+    "baseline": "WebGL2 + Three.js + HTML/CSS controls",
+    "optional": "React or Next.js host; WebGPU/WGSL experimental after parity QA",
+    "fallback": "2D semantic document + labeled static rendering + captions",
+    "no_new_runtime_dependency_required": true
+  },
+  "appearance": {
+    "visual_intent": "neutral instrumented inspection stage emphasizing material response, not an overly dramatic editorial render",
+    "background": "low-contrast neutral adjustable background",
+    "lighting": [
+      "fixed neutral key",
+      "tunable inspection key",
+      "optional prefiltered HDR environment"
+    ],
+    "colorspace": "linear-light shading; named display transform and documented exposure",
+    "annotations": "DOM text linked to stable specimen IDs; hide none behind mouse-only gestures"
+  },
+  "scene": {
+    "id": "panel-lab-scene",
+    "semantic_ref": "qt314wink/seed-loom/examples/immersive-specimen.seed.json",
+    "camera": {
+      "projection": "perspective",
+      "orbit_enabled": true,
+      "camera_fov_deg": 45,
+      "near_m": 0.1,
+      "far_m": 100
+    },
+    "lighting": {
+      "key_type": "directional",
+      "environment": "optional HDR",
+      "state_preservation": "same light positions and exposure when comparing shader candidates"
+    },
+    "interaction_modes": [
+      "2d-information",
+      "3d-inspection"
+    ],
+    "event_sequence": [
+      {
+        "id": "load",
+        "preconditions": [],
+        "effect": "Display semantic summary and static/GPU preview"
+      },
+      {
+        "id": "inspect",
+        "preconditions": [
+          "focus on specimen"
+        ],
+        "effect": "Select specimen and announce the associated document anchor"
+      },
+      {
+        "id": "compare",
+        "preconditions": [
+          "two candidates"
+        ],
+        "effect": "Lock camera/light/environment while comparing"
+      },
+      {
+        "id": "reset",
+        "preconditions": [],
+        "effect": "Restore versioned initial state"
+      }
+    ]
+  },
+  "behavior": {
+    "keyboard": [
+      "Tab: traverse visible controls",
+      "Enter/Space: activate selected control",
+      "Escape: close inspection overlay"
+    ],
+    "touch": "non-hover equivalents for all actions",
+    "state_invariants": [
+      "2D and 3D selection stay synchronized",
+      "source information remains directly accessible",
+      "object data does not depend on display frame rate"
+    ],
+    "failure": "Preserve interaction and documentation when WebGL context is lost or unavailable"
+  },
+  "motion": {
+    "authority": "docs/adr/ADR-0001-semantic-motion-profiles.md (proposed) and tokens/motion.json (current source)",
+    "ui_semantic_roles": {
+      "focus": "immediate",
+      "selection": "responsive",
+      "panel": "structural",
+      "intro": "editorial",
+      "ambient": "atmospheric"
+    },
+    "simulation": {
+      "clock": "simulation dt fixed or clamped, decoupled from RAF timing",
+      "ambient": "off by default in mobile low-power/reduced-motion; explicit opt-in on desktop",
+      "camera": "user-driven orbit; no unannounced automatic navigation",
+      "temporal_event": "scrubbable, pausable, deterministic cue ordering"
+    },
+    "reduced_motion": [
+      "turn off ambient oscillation and automatic camera fly-throughs",
+      "replace nonessential transitions with instantaneous or low-motion state change",
+      "preserve access to each narrative cue in static text"
+    ]
+  },
+  "performance_budget": {
+    "classification": "candidate thresholds, NOT benchmark results; tune after canary measurement",
+    "mobile_reference": {
+      "target_p95_frame_ms": 33.3,
+      "target_min_interactive_fps": 30,
+      "gpu_texture_memory_soft_mb": 96,
+      "draw_calls_soft": 100,
+      "conditions": "document real device, resolution, DPR, browser, thermal state; this is not a universal mobile cap"
+    },
+    "desktop_reference": {
+      "target_p95_frame_ms": 16.7,
+      "target_min_interactive_fps": 60,
+      "gpu_texture_memory_soft_mb": 256,
+      "draw_calls_soft": 250,
+      "conditions": "document representative GPU/browser and pixel ratio; thresholds are aspirational"
+    },
+    "quality_ladders": [
+      "DPR clamp before reducing semantic content",
+      "disable expensive postprocessing",
+      "use lower resolution normal maps/HDR prefilters",
+      "reduce particle count and volumetric steps",
+      "retain labeled static fallback"
+    ],
+    "test": [
+      "capture 30-second warm-up plus 60-second navigation/compare trace",
+      "report p50/p95 frame time, dropped frames, draw calls, GPU allocations if observable, JS heap and context-loss recovery",
+      "test reduced motion, touch, keyboard, screen-reader text, WebGL unavailable and 320px viewport"
+    ],
+    "approval_rule": "no numeric budget moves from proposal to enforced gate before representative measurements and exception review"
+  },
+  "provenance": [
+    {
+      "source": "docs/motion-microsite/PERFORMANCE_STANDARDS.md",
+      "status": "existing microsite-specific standard, not a universal 3D requirement"
+    },
+    {
+      "source": "docs/adr/ADR-0001-semantic-motion-profiles.md",
+      "status": "proposed ADR, not approved universal behavior"
+    },
+    {
+      "source": "Stanton et al. 2017 dual-mode web UI study",
+      "status": "external source: usability pilot, n=11"
+    },
+    {
+      "source": "Winchester et al. 2025 virtual storytelling case",
+      "status": "external source: event workflow and camera constraints"
+    }
+  ]
+}
